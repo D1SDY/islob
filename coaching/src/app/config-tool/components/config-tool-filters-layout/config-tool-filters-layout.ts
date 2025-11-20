@@ -6,7 +6,7 @@ import { MatButton }                                      from '@angular/materia
 import { MatFormField, MatInput, MatLabel }               from '@angular/material/input';
 import { MatOption, MatSelect }                           from '@angular/material/select';
 import { Equipment, ExerciseType, Location, MuscleGroup } from 'coaching-shared';
-import { map, Observable, startWith }                     from 'rxjs';
+import { map, Observable, startWith, tap } from 'rxjs';
 import { buildDropDownOptions }                           from '../../utilities/helpers/filters.helpers';
 import { ConfigToolFilters }                              from '../../utilities/models/config-tool-filters';
 import { ConfigToolTranslations }                         from '../../utilities/models/config-tool-translations';
@@ -50,6 +50,7 @@ export class ConfigToolFiltersLayout implements OnInit {
     this.filteredOptions = this.filters.controls.search.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
+      tap(() => this.applyFilters()),
     );
   }
 
