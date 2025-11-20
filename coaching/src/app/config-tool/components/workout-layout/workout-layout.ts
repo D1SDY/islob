@@ -20,7 +20,7 @@ import { ExerciseLayout }                                           from '../exe
 export class WorkoutLayout {
 
   connectedTo = input.required<string[]>();
-  workoutExercises: Exercise[] = [];
+  workoutExercises = input.required<Exercise[]>();
 
   drop(event: CdkDragDrop<Exercise[]>) {
     if (event.previousContainer === event.container) {

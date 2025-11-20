@@ -16,32 +16,41 @@ import { Exercise }                                                  from 'coach
   ]
 })
 export class ExerciseLayout {
-  exercise = input.required<Exercise>();
   private readonly fb = inject(FormBuilder);
-  setsFormArray = this.fb.array([this.singleSet()]);
+
+  exercise = input.required<Exercise>();
+
+  private setsFormArray = this.fb.array([this.singleSet()]);
 
   get sets() {
     return this.setsFormArray;
   }
 
-  get setsValues() {
-    return this.sets.value;
+  get availableForNewSet() {
+    return this.setsFormArray.length < 5;
   }
-
 
   addSet() {
-    if (this.setsFormArray.length < 5) {
-      this.setsFormArray.push(this.singleSet());
-    }
-    console.log(this.sets);
+    this.setsFormArray.push(this.singleSet());
   }
 
-  private singleSet() {
+  deleteSet(index: number) {
+    this.setsFormArray.removeAt(index);
+  }
+
+  copySet(index: number) {
+    if (this.availableForNewSet) {
+      const {reps, rest, weight, effort} = this.setsFormArray.at(index).getRawValue();
+      this.setsFormArray.push(this.singleSet(reps, rest, weight, effort));
+    }
+  }
+
+  private singleSet(reps = 0, rest = 0, weight = 0, effort = '') {
     return this.fb.group({
-      reps: [0, Validators.required],
-      rest: [0, Validators.required],
-      weight: [0, Validators.required],
-      effort: ["", Validators.required],
+      reps: [reps, Validators.required],
+      rest: [rest, Validators.required],
+      weight: [weight, Validators.required],
+      effort: [effort, Validators.required],
     });
   }
 }

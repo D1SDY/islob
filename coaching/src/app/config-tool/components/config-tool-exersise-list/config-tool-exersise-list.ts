@@ -1,13 +1,6 @@
-import {Component, input} from '@angular/core';
-import {Exercise} from 'coaching-shared';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-  CdkDropListGroup, copyArrayItem,
-  moveItemInArray,
-  transferArrayItem
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDropList }     from '@angular/cdk/drag-drop';
+import { Component, input, output } from '@angular/core';
+import { Exercise }                 from 'coaching-shared';
 
 @Component({
   selector: 'app-config-tool-exersise-list',
@@ -19,7 +12,12 @@ import {
   styleUrl: './config-tool-exersise-list.scss',
 })
 export class ConfigToolExersiseList {
-
   exercises = input.required<Exercise[]>();
   connectedTo = input.required<string[]>();
+
+  addedExercise = output<Exercise>();
+
+  addExercise(exercise: Exercise) {
+    this.addedExercise.emit(exercise);
+  }
 }

@@ -25,12 +25,13 @@
           <input [formControl]="set.controls.effort">
         </div>
         <div class="actions">
-          <mat-icon svgIcon="stack" ></mat-icon >
-          <mat-icon svgIcon="delete" ></mat-icon >
+          <mat-icon svgIcon="stack" (click)="copySet(i)" ></mat-icon >
+          <mat-icon svgIcon="delete" (click)="deleteSet(i)" ></mat-icon >
         </div>
       </div>
     }
-
-    <button mat-button (click)="addSet()">Add Set</button>
+    @if (availableForNewSet) {
+      <button mat-button (click)="addSet()" >Add Set</button >
+    }
   </div>
 </div>

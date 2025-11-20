@@ -9,7 +9,7 @@
 >
   <!--Todo: make id through input-->
   @for (exercise of exercises(); track exercise.name) {
-    <div class="exercise-container" cdkDrag [cdkDragData]="exercise">
+    <div class="exercise-container" cdkDrag [cdkDragData]="exercise" (dblclick)="addExercise(exercise)">
       {{ exercise.name }}
       {{ exercise.muscleGroup }}
       {{ exercise.equipment }}
