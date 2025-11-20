@@ -1,0 +1,60 @@
+<form [formGroup]="filters" class="filters" (ngSubmit)="applyFilters()">
+  <mat-form-field class="example-full-width">
+    <mat-label>Search</mat-label>
+    <input type="text"
+           matInput
+           formControlName="search"
+           [matAutocomplete]="auto">
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      @for (option of filteredOptions | async; track option) {
+        <mat-option [value]="option">{{ option }}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Location</mat-label>
+    <mat-select formControlName="location" multiple>
+      @for (location of locationOptions; track location.value) {
+        <mat-option [value]="location.value">
+          {{ location.label }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Equipment</mat-label>
+    <mat-select formControlName="equipment" multiple>
+      @for (equipmentOption of equipmentOptions; track equipmentOption.value) {
+        <mat-option [value]="equipmentOption.value">
+          {{ equipmentOption.label }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Muscle</mat-label>
+    <mat-select formControlName="muscle" multiple>
+      @for (muscleOption of muscleGroupOptions; track muscleOption.value) {
+        <mat-option [value]="muscleOption.value">
+          {{ muscleOption.label }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Exercise type</mat-label>
+    <mat-select formControlName="exerciseType" multiple>
+      @for (exerciseType of exerciseTypeOptions; track exerciseType.value) {
+        <mat-option [value]="exerciseType.value">
+          {{ exerciseType.label }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <button matButton type="submit">Apply Filters</button>
+</form>

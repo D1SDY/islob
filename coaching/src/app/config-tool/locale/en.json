@@ -1,0 +1,27 @@
+{
+  "BODY_WEIGHT": "Body Weight",
+  "BAR": "Bar",
+  "DUMBBELLS": "Dumbbells",
+  "MACHINE": "Machine",
+  "RESISTANCE_BANDS": "Resistance Bands",
+  "TRX": "TRX",
+  "KETTLEBELL": "Kettlebell",
+
+  "CHEST": "Chest",
+  "BACK": "Back",
+  "LEGS": "Legs",
+  "BUTTOCKS": "Buttocks",
+  "SHOULDERS": "Shoulders",
+  "ARMS": "Arms",
+  "CORE": "Core",
+  "FULL_BODY": "Full body",
+
+  "GYM": "Gym",
+  "HOME": "Home",
+
+  "BASIC": "Basic",
+  "ISOLATION": "Isolation",
+  "MOBILITY": "Mobility",
+  "CARDIO": "Cardio",
+  "PLYOMETRICS": "Plyometrics"
+}

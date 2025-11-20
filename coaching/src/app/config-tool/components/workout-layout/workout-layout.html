@@ -1,0 +1,16 @@
+<div
+  cdkDropList
+  id="workoutList"
+  [cdkDropListData]="workoutExercises"
+  (cdkDropListDropped)="drop($event)"
+  class="workout-container"
+>
+  @if (workoutExercises.length === 0) {
+    <app-excercise-container >
+      <mat-icon svgIcon="plus" ></mat-icon >
+    </app-excercise-container >
+  }
+  @for (exercise of workoutExercises; track exercise.name) {
+    <app-exercise-layout cdkDrag [exercise]="exercise"/>
+  }
+</div >

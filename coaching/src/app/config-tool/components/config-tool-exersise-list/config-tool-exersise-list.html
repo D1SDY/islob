@@ -1,0 +1,18 @@
+<div
+  cdkDropList
+  [cdkDropListData]="exercises()"
+  [cdkDropListConnectedTo]="connectedTo()"
+  cdkDropListSortingDisabled
+  cdkDropListHasAnchor
+  class="exercise-list"
+  id="configList"
+>
+  <!--Todo: make id through input-->
+  @for (exercise of exercises(); track exercise.name) {
+    <div class="exercise-container" cdkDrag [cdkDragData]="exercise">
+      {{ exercise.name }}
+      {{ exercise.muscleGroup }}
+      {{ exercise.equipment }}
+    </div >
+  }
+</div >

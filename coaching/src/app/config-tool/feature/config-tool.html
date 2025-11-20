@@ -1,0 +1,15 @@
+<mat-drawer-container class="container">
+  <mat-drawer #drawer mode="side" class="drawer">
+    <app-config-tool-filters-layout [autoCompleteOptions]="autoCompleteOptions()"
+                                    (filtersApplied)="applyFilters($event)"/>
+    <app-config-tool-exersise-list [connectedTo]="['workoutList']" [exercises]="exercises()"/>
+  </mat-drawer>
+
+  <div class="content">
+    <button type="button" matButton (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+    <app-workout-layout [connectedTo]="['configList']" />
+  </div>
+
+</mat-drawer-container>

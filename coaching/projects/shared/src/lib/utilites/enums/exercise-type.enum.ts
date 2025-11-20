@@ -1,0 +1,7 @@
+export enum ExerciseType {
+  BASIC = "BASIC",
+  ISOLATION = "ISOLATION",
+  MOBILITY = "MOBILITY",
+  CARDIO = "CARDIO",
+  PLYOMETRICS = "PLYOMETRICS",
+}

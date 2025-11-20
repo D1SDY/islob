@@ -1,0 +1,12 @@
+.workout-container{
+  height: 1000px;
+  width: 97%;
+  overflow-y: auto;    /* makes it scrollable vertically */
+  overflow-x: hidden;
+  display: flex;
+  flex-wrap: wrap;/* ensures the list acts like a block container */
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin:25px;
+}

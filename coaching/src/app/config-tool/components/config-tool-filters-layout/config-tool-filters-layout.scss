@@ -1,0 +1,10 @@
+:host {
+  width: 100%;
+  padding: 15px;
+  .filters {
+    padding: 15px;
+    mat-form-field {
+      width: 100%;
+    }
+  }
+}
