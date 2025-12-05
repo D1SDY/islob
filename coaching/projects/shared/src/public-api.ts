@@ -6,4 +6,4 @@ export * from './lib/utilites/enums/exercise-type.enum';
 export * from './lib/utilites/models/exercise';
 export * from './lib/utilites/models/translations';
 
-export * from './lib/utilites/constants/workout';
+export * from './lib/utilites/constants/config-tool.constants';

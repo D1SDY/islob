@@ -10,9 +10,16 @@
   <!--Todo: make id through input-->
   @for (exercise of exercises(); track exercise.name) {
     <div class="exercise-container" cdkDrag [cdkDragData]="exercise" (dblclick)="addExercise(exercise)">
-      {{ exercise.name }}
-      {{ exercise.muscleGroup }}
-      {{ exercise.equipment }}
+      <div class="images">
+        <div class="image-container">
+          <img src="assets/images/IMG_4870.PNG" alt="left exercise image">
+        </div>
+
+        <div class="image-container">
+          <img src="assets/images/IMG_4871.PNG" alt="left exercise image">
+        </div>
+      </div>
+      <h2>{{ exercise.name }}</h2>
     </div >
   }
 </div >

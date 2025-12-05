@@ -4,7 +4,7 @@
  height: 100%;
 
   @include mat.sidenav-overrides((
-    container-width:400px
+    container-width:600px
   ))
 }
 
@@ -24,10 +24,14 @@
 }
 
 ::ng-deep .exercise-container {
-  width: 100px;
-  height: 100px;
+  width: 430px;
   margin: 10px;
-  border: 1px solid red;
+  border: 3px solid #D1D9E6;
+  border-radius: 40px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 ::ng-deep .cdk-drag-preview {

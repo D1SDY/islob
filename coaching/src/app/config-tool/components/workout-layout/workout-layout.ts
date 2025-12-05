@@ -1,13 +1,13 @@
 import { CdkDrag, CdkDragDrop, CdkDropList, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, input, model, output } from '@angular/core';
-import { MatButton }                       from '@angular/material/button';
-import { MatIcon }                         from '@angular/material/icon';
-import { MatTab, MatTabGroup }             from '@angular/material/tabs';
-import { Exercise, WORKOUT_LIMIT }         from 'coaching-shared';
+import { Component, input, model, output }         from '@angular/core';
+import { MatButton }                               from '@angular/material/button';
+import { MatIcon }                                 from '@angular/material/icon';
+import { MatTab, MatTabGroup }                     from '@angular/material/tabs';
+import { Exercise, EXERCISE_LIMIT, WORKOUT_LIMIT } from 'coaching-shared';
 import {
   ExcerciseContainer
-}                                          from '../excercise-container/excercise-container';
-import { ExerciseLayout }                  from '../exercise-layout/exercise-layout';
+}                                                  from '../excercise-container/excercise-container';
+import { ExerciseLayout }                          from '../exercise-layout/exercise-layout';
 
 @Component({
   selector: 'app-workout-layout',
@@ -42,13 +42,14 @@ export class WorkoutLayout {
   drop(event: CdkDragDrop<Exercise[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
+    } else if (this.workouts()[this.selectedTab()].length < EXERCISE_LIMIT) {
       copyArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+
     }
   }
 

@@ -1,7 +1,7 @@
 import { Component, computed, signal }   from '@angular/core';
 import { MatButton }                     from '@angular/material/button';
 import { MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
-import { Exercise }                      from 'coaching-shared';
+import { Exercise, EXERCISE_LIMIT } from 'coaching-shared';
 import { ConfigToolExersiseList }        from '../components/config-tool-exersise-list/config-tool-exersise-list';
 import { ConfigToolFiltersLayout }       from '../components/config-tool-filters-layout/config-tool-filters-layout';
 import { WorkoutLayout }                 from '../components/workout-layout/workout-layout';
@@ -35,11 +35,14 @@ export class ConfigTool {
     this.filters.set(filters);
   }
 
-  addExercise(exercise: Exercise) {
-    this.workouts.update(current => {
-      current[this.selectedTab()].push(exercise);
-      return [...current];
-    });
+  addExercise(exercise: Exercise): void {
+    //Todo: add more fancy validator for the exercise to be added
+    if (this.workouts()[this.selectedTab()].length < EXERCISE_LIMIT) {
+      this.workouts.update(current => {
+        current[this.selectedTab()].push(exercise);
+        return [...current];
+      });
+    }
   }
 
   addWorkout() {
