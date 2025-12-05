@@ -1,16 +1,30 @@
+<button matButton (click)="addWorkout()" [disabled]="isWorkoutLimit()" >Add workout</button >
+
 <div
   cdkDropList
   id="workoutList"
-  [cdkDropListData]="workoutExercises()"
+  [cdkDropListData]="workouts()[selectedTab()]"
   (cdkDropListDropped)="drop($event)"
-  class="workout-container"
+  class="workouts-plan-container"
 >
-  @if (workoutExercises().length === 0) {
-    <app-excercise-container >
-      <mat-icon svgIcon="plus" ></mat-icon >
-    </app-excercise-container >
-  }
-  @for (exercise of workoutExercises(); track exercise.name) {
-    <app-exercise-layout cdkDrag [exercise]="exercise"/>
-  }
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" [selectedIndex]="selectedTab()"
+                 (selectedIndexChange)="selectedTab.set($event)" >
+    @for (workout of workouts(); track workout; let index = $index) {
+      <mat-tab [label]='workoutLabel(index)' >
+        @if (index !== 0) {
+          <button matButton (click)="deleteWorkout(index)" >Delete</button >
+        }
+        <div class="workout-container" >
+          @if (workout.length === 0) {
+            <app-excercise-container >
+              <mat-icon svgIcon="plus" ></mat-icon >
+            </app-excercise-container >
+          }
+          @for (exercise of workout; track exercise.name) {
+            <app-exercise-layout cdkDrag [exercise]="exercise" />
+          }
+        </div >
+      </mat-tab >
+    }
+  </mat-tab-group >
 </div >

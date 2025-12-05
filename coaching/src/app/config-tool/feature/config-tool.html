@@ -10,7 +10,10 @@
     <button type="button" matButton (click)="drawer.toggle()">
       Toggle sidenav
     </button>
-    <app-workout-layout [connectedTo]="['configList']" [workoutExercises]="workoutExercises()" />
+    <app-workout-layout [connectedTo]="['configList']" [workouts]="workouts()"
+                        [(selectedTab)]="selectedTab"
+                        (workoutAdded)="addWorkout()"
+                        (workoutDeleted)="deleteWorkout($event)" />
   </div>
 
 </mat-drawer-container>

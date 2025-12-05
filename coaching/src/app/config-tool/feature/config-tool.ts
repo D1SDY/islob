@@ -24,17 +24,30 @@ import { LIST_OF_EXERCISES }             from './temp';
 })
 export class ConfigTool {
   filters = signal<ConfigToolFilters>({} as ConfigToolFilters);
+  workouts = signal<Exercise[][]>([[]]);
+  selectedTab = signal(0);
+
   exercises = computed(() => applyActiveFilters(this.filters(), LIST_OF_EXERCISES));
   autoCompleteOptions = computed(() => this.exercises().map(exercise => exercise.name));
 
-  workoutExercises = signal<Exercise[]>([]);
 
   applyFilters(filters: ConfigToolFilters) {
     this.filters.set(filters);
   }
 
   addExercise(exercise: Exercise) {
-   this.workoutExercises.update(current => [...current, exercise]);
+    this.workouts.update(current => {
+      current[this.selectedTab()].push(exercise);
+      return [...current];
+    });
+  }
+
+  addWorkout() {
+    this.workouts().push([]);
+  }
+
+  deleteWorkout(index: number) {
+    this.workouts().splice(index, 1);
   }
 
 }
