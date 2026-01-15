@@ -1,8 +1,10 @@
-import { Component, inject, input }                                  from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButton }                                                 from '@angular/material/button';
-import { MatIcon }                                                   from '@angular/material/icon';
-import { Exercise }                                                  from 'coaching-shared';
+import { ChangeDetectorRef, Component, inject, input, OnInit, output }                from '@angular/core';
+import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButton }                                                                  from '@angular/material/button';
+import { MatIcon }                                                                    from '@angular/material/icon';
+import { Exercise }                                                                   from 'coaching-shared';
+import * as ExerciseValidators
+                                                                                      from '../../utilities/helpers/exercise-validations';
 
 @Component({
   selector: 'app-exercise-layout',
@@ -15,10 +17,16 @@ import { Exercise }                                                  from 'coach
     MatIcon
   ]
 })
-export class ExerciseLayout {
+export class ExerciseLayout implements OnInit {
+  ngOnInit(): void {
+    this.setsFormArray.valueChanges.subscribe(() => this.cdr.markForCheck());
+  }
   private readonly fb = inject(FormBuilder);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   exercise = input.required<Exercise>();
+
+  deleteExercise = output<string>();
 
   private setsFormArray = this.fb.array([this.singleSet()]);
 
@@ -45,12 +53,22 @@ export class ExerciseLayout {
     }
   }
 
-  private singleSet(reps = 0, rest = 0, weight = 0, effort = '') {
+  delete(): void {
+    this.deleteExercise.emit(this.exercise().name);
+  }
+
+  showError(control: AbstractControl | null): boolean {
+    if (!control) return false;
+    return control.invalid && (control.dirty || control.touched);
+  }
+
+  private singleSet(reps = null, rest = null, weight = null, effort = null) {
     return this.fb.group({
-      reps: [reps, Validators.required],
-      rest: [rest, Validators.required],
-      weight: [weight, Validators.required],
-      effort: [effort, Validators.required],
-    });
+        reps: [reps, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator, ExerciseValidators.noZeroValidator, ExerciseValidators.integerOnlyValidator]],
+        rest: [rest, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator,]],
+        weight: [weight, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator,]],
+        effort: [effort, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator, , ExerciseValidators.noZeroValidator]],
+      },
+      {updateOn: 'change'});
   }
 }

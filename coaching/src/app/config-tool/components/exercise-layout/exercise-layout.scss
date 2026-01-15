@@ -1,6 +1,5 @@
 .exercise-layout-container {
   width: 350px;
-  height: 610px;
   border: 4px solid #D1D9E6;
   border-radius: 34px;
   margin: 10px;
@@ -8,11 +7,23 @@
   flex-direction: column;
   align-items: center;
   padding: 5px;
+  position: relative;
+
+  &:hover .close {
+    visibility: visible;
+  }
+
+
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    visibility: hidden;
+  }
 
   .image-container {
-    width: 100%;
     height: 174px;
-    border: 1px solid red;
   }
 
   .set-container {
@@ -39,7 +50,12 @@
           height: 23px;
           text-align: center;
           border: none;
+
+          &.invalid {
+            border: 2px solid red;
+          }
         }
+
       }
 
       .actions {

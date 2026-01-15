@@ -6,7 +6,7 @@ import { Exercise }                 from 'coaching-shared';
   selector: 'app-config-tool-exersise-list',
   imports: [
     CdkDropList,
-    CdkDrag
+    CdkDrag,
   ],
   templateUrl: './config-tool-exersise-list.html',
   styleUrl: './config-tool-exersise-list.scss',
@@ -19,5 +19,9 @@ export class ConfigToolExersiseList {
 
   addExercise(exercise: Exercise) {
     this.addedExercise.emit(exercise);
+  }
+
+  openVideo(link: string): void {
+    window.open(link, 'youtube');
   }
 }

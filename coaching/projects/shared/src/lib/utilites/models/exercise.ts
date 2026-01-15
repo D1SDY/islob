@@ -10,4 +10,5 @@ export interface Exercise {
   location: Location;
   exerciseType: ExerciseType;
   images?: string[];
+  link?: string;
 }

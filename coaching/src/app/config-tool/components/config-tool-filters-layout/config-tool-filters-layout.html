@@ -1,5 +1,5 @@
-<form [formGroup]="filters" class="filters" (ngSubmit)="applyFilters()">
-  <mat-form-field class="example-full-width">
+<form [formGroup]="filters" class="filters">
+  <mat-form-field appearance="outline">
     <mat-label>Search</mat-label>
     <input type="text"
            matInput
@@ -12,7 +12,7 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Location</mat-label>
     <mat-select formControlName="location" multiple>
       @for (location of locationOptions; track location.value) {
@@ -23,7 +23,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Equipment</mat-label>
     <mat-select formControlName="equipment" multiple>
       @for (equipmentOption of equipmentOptions; track equipmentOption.value) {
@@ -34,7 +34,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Muscle</mat-label>
     <mat-select formControlName="muscle" multiple>
       @for (muscleOption of muscleGroupOptions; track muscleOption.value) {
@@ -45,7 +45,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field appearance="outline">
     <mat-label>Exercise type</mat-label>
     <mat-select formControlName="exerciseType" multiple>
       @for (exerciseType of exerciseTypeOptions; track exerciseType.value) {
@@ -56,5 +56,5 @@
     </mat-select>
   </mat-form-field>
 
-  <button matButton type="submit">Apply Filters</button>
+<!--  <button matButton type="submit">Apply Filters</button>-->
 </form>

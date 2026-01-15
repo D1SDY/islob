@@ -1,37 +1,44 @@
-<div class="exercise-layout-container">
-  <div class="image-container">
-    img
-  </div>
-  <h1>{{exercise().name}}</h1>
-  <div class="set-container">
+<div class="exercise-layout-container" >
+  <mat-icon class="close" svgIcon="cross" (click)='delete()'></mat-icon >
+  <div class="images" >
+    <div class="image-container" >
+      <img src="assets/images/IMG_4870.PNG" alt="left exercise image" >
+    </div >
 
-    @for (set of sets.controls; track set; let i = $index){
-      <div class="set">
-        {{i + 1 }}
-        <div class="control-container">
-          <label>Reps</label>
-          <input [formControl]="set.controls.reps">
-        </div>
-        <div class="control-container">
-          <label>Rest</label>
-          <input [formControl]="set.controls.rest">
-        </div>
-        <div class="control-container">
-          <label>Weight</label>
-          <input [formControl]="set.controls.weight">
-        </div>
-        <div class="control-container">
-          <label>Effort</label>
-          <input [formControl]="set.controls.effort">
-        </div>
-        <div class="actions">
+    <div class="image-container" >
+      <img src="assets/images/IMG_4871.PNG" alt="left exercise image" >
+    </div >
+  </div >
+  <h1 >{{ exercise().name }}</h1 >
+  <div class="set-container" >
+
+    @for (set of sets.controls; track set; let i = $index) {
+      <div class="set" >
+        {{ i + 1 }}
+        <div class="control-container" >
+          <label >Reps</label >
+          <input [formControl]="set.controls.reps" [class.invalid]='showError(set.controls.reps)'>
+        </div >
+        <div class="control-container" >
+          <label >Rest (s)</label >
+          <input [formControl]="set.controls.rest" [class.invalid]='showError(set.controls.rest)'>
+        </div >
+        <div class="control-container" >
+          <label >Weight</label >
+          <input [formControl]="set.controls.weight" [class.invalid]='showError(set.controls.weight)'>
+        </div >
+        <div class="control-container" >
+          <label >Effort</label >
+          <input [formControl]="set.controls.effort" [class.invalid]='showError(set.controls.effort)'>
+        </div >
+        <div class="actions" >
           <mat-icon svgIcon="stack" (click)="copySet(i)" ></mat-icon >
           <mat-icon svgIcon="delete" (click)="deleteSet(i)" ></mat-icon >
-        </div>
-      </div>
+        </div >
+      </div >
     }
     @if (availableForNewSet) {
       <button mat-button (click)="addSet()" >Add Set</button >
     }
-  </div>
-</div>
+  </div >
+</div >

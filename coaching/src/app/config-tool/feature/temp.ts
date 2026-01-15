@@ -7,6 +7,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.BAR,
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
   {
     name: 'Squat',
@@ -14,6 +15,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.BAR,
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
   {
     name: 'Deadlift',
@@ -21,6 +23,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.BAR,
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
   {
     name: 'Pull-Up',
@@ -28,6 +31,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.BODY_WEIGHT,
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
   {
     name: 'Shoulder Press',
@@ -35,6 +39,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.DUMBBELLS,
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
   {
     name: 'Bicep Curl',
@@ -42,6 +47,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.DUMBBELLS,
     location: Location.GYM,
     exerciseType: ExerciseType.ISOLATION,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
   {
     name: 'Skull Crusher',
@@ -49,6 +55,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.DUMBBELLS,
     location: Location.GYM,
     exerciseType: ExerciseType.ISOLATION,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
   {
     name: 'Lunge',
@@ -56,6 +63,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.BODY_WEIGHT,
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
   {
     name: 'Plank',
@@ -63,6 +71,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.BODY_WEIGHT,
     location: Location.GYM,
     exerciseType: ExerciseType.ISOLATION,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
   {
     name: 'Lat Pulldown',
@@ -70,5 +79,6 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     equipment: Equipment.MACHINE,
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
+    link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
   },
 ];

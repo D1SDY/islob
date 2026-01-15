@@ -2,7 +2,6 @@ import { AsyncPipe }                                      from '@angular/common'
 import { Component, inject, input, OnInit, output }       from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule }    from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger }        from '@angular/material/autocomplete';
-import { MatButton }                                      from '@angular/material/button';
 import { MatFormField, MatInput, MatLabel }               from '@angular/material/input';
 import { MatOption, MatSelect }                           from '@angular/material/select';
 import { Equipment, ExerciseType, Location, MuscleGroup } from 'coaching-shared';
@@ -21,7 +20,6 @@ import { TranslationService }                             from '../../utilities/
     ReactiveFormsModule,
     MatSelect,
     MatOption,
-    MatButton,
     MatAutocompleteTrigger,
     MatAutocomplete,
     AsyncPipe
@@ -52,6 +50,7 @@ export class ConfigToolFiltersLayout implements OnInit {
       map(value => this._filter(value || '')),
       tap(() => this.applyFilters()),
     );
+    this.filters.valueChanges.subscribe(() => this.applyFilters());
   }
 
   private _filter(value: string): string[] {

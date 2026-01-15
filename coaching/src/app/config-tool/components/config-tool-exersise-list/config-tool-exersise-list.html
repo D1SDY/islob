@@ -19,7 +19,7 @@
           <img src="assets/images/IMG_4871.PNG" alt="left exercise image">
         </div>
       </div>
-      <h2>{{ exercise.name }}</h2>
+      <h2 (click)='openVideo(exercise.link)' class='exercise-name'>{{ exercise.name }}</h2>
     </div >
   }
 </div >

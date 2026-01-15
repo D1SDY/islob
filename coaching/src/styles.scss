@@ -15,6 +15,13 @@ html {
     typography: Roboto,
     density: 0,
   ));
+
+  @include mat.form-field-overrides((
+    outlined-outline-color: #D1D9E6,
+    outlined-container-shape: 40px,
+    outlined-label-text-size: 16px
+  ));
+
 }
 
 body {

@@ -33,6 +33,8 @@ function registerIcons(iconReg: MatIconRegistry, sanitizer: DomSanitizer) {
       ['plus','assets/icons/plus.svg'],
       ['delete','assets/icons/delete.svg'],
       ['stack','assets/icons/stack.svg'],
+      ['cross','assets/icons/cross.svg'],
+      ['link','assets/icons/link.svg'],
     ];
     icons.forEach(([name, url]) => {
       iconReg.addSvgIcon(name, sanitizer.bypassSecurityTrustResourceUrl(url));

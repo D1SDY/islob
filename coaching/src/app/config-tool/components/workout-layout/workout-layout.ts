@@ -66,4 +66,8 @@ export class WorkoutLayout {
   isWorkoutLimit(): boolean {
     return this.workouts().length === WORKOUT_LIMIT + 1;
   }
+
+  deleteExercise(exerciseName: string): void {
+    this.workouts()[this.selectedTab()].splice(this.workouts()[this.selectedTab()].findIndex(exercise => exercise.name === exerciseName), 1);
+  }
 }
