@@ -1,5 +1,6 @@
 <div class="exercise-layout-container" >
   <mat-icon class="close" svgIcon="cross" (click)='delete()'></mat-icon >
+  <weight-switcher [activeWeightSystem]='exercise().weightSystem' (weightSystemChanged)='weightSystemChanged($event)' />
   <div class="images" >
     <div class="image-container" >
       <img src="assets/images/IMG_4870.PNG" alt="left exercise image" >
@@ -11,23 +12,22 @@
   </div >
   <h1 >{{ exercise().name }}</h1 >
   <div class="set-container" >
-
     @for (set of sets.controls; track set; let i = $index) {
       <div class="set" >
         {{ i + 1 }}
-        <div class="control-container" >
+        <div class="control-container" [matTooltip]='validationsInfoMessage(set.controls.reps)'>
           <label >Reps</label >
           <input [formControl]="set.controls.reps" [class.invalid]='showError(set.controls.reps)'>
         </div >
-        <div class="control-container" >
+        <div class="control-container" [matTooltip]='validationsInfoMessage(set.controls.rest)'>
           <label >Rest (s)</label >
           <input [formControl]="set.controls.rest" [class.invalid]='showError(set.controls.rest)'>
         </div >
-        <div class="control-container" >
+        <div class="control-container" [matTooltip]='validationsInfoMessage(set.controls.weight)'>
           <label >Weight</label >
           <input [formControl]="set.controls.weight" [class.invalid]='showError(set.controls.weight)'>
         </div >
-        <div class="control-container" >
+        <div class="control-container percent-input" [matTooltip]='validationsInfoMessage(set.controls.effort)'>
           <label >Effort</label >
           <input [formControl]="set.controls.effort" [class.invalid]='showError(set.controls.effort)'>
         </div >

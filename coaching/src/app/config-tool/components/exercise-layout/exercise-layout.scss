@@ -39,10 +39,34 @@
       background-color: #F5F7FA;
       padding: 8px 15px;
 
+      &:hover .actions {
+        visibility: visible;
+      }
+
       .control-container {
         display: flex;
         flex-direction: column;
         align-items: center;
+
+
+        &.percent-input {
+          position: relative;
+
+          &::after {
+            content: '%';
+            position: absolute;
+            right: 8px;
+            top: 72%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: #0057b8;
+            font-size: 0.9rem;
+          }
+
+          input {
+            padding-right: 0.5rem;
+          }
+        }
 
         input {
           border-radius: 34px;
@@ -59,6 +83,7 @@
       }
 
       .actions {
+        visibility: hidden;
         height: 100%;
         display: flex;
         flex-direction: row;

@@ -2,9 +2,16 @@ import { ChangeDetectorRef, Component, inject, input, OnInit, output }          
 import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton }                                                                  from '@angular/material/button';
 import { MatIcon }                                                                    from '@angular/material/icon';
-import { Exercise }                                                                   from 'coaching-shared';
+import { MatTooltip }             from '@angular/material/tooltip';
+import { Exercise, WeightSystem } from 'coaching-shared';
 import * as ExerciseValidators
                                                                                       from '../../utilities/helpers/exercise-validations';
+import {
+  getErrorText
+}                                 from '../../utilities/helpers/exercise-validations';
+import {
+  WeightSwitcher
+}                                 from '../weight-switcher/weight-switcher';
 
 @Component({
   selector: 'app-exercise-layout',
@@ -14,13 +21,12 @@ import * as ExerciseValidators
     MatButton,
     FormsModule,
     ReactiveFormsModule,
-    MatIcon
+    MatIcon,
+    WeightSwitcher,
+    MatTooltip
   ]
 })
 export class ExerciseLayout implements OnInit {
-  ngOnInit(): void {
-    this.setsFormArray.valueChanges.subscribe(() => this.cdr.markForCheck());
-  }
   private readonly fb = inject(FormBuilder);
   private readonly cdr = inject(ChangeDetectorRef);
 
@@ -29,6 +35,10 @@ export class ExerciseLayout implements OnInit {
   deleteExercise = output<string>();
 
   private setsFormArray = this.fb.array([this.singleSet()]);
+
+  ngOnInit(): void {
+    this.setsFormArray.valueChanges.subscribe(() => this.cdr.markForCheck());
+  }
 
   get sets() {
     return this.setsFormArray;
@@ -62,12 +72,20 @@ export class ExerciseLayout implements OnInit {
     return control.invalid && (control.dirty || control.touched);
   }
 
+  weightSystemChanged(weightSystem: WeightSystem): void {
+    this.exercise().weightSystem = weightSystem;
+  }
+
+  validationsInfoMessage(control: AbstractControl): string {
+    return getErrorText(control);
+  }
+
   private singleSet(reps = null, rest = null, weight = null, effort = null) {
     return this.fb.group({
-        reps: [reps, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator, ExerciseValidators.noZeroValidator, ExerciseValidators.integerOnlyValidator]],
-        rest: [rest, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator,]],
-        weight: [weight, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator,]],
-        effort: [effort, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator, , ExerciseValidators.noZeroValidator]],
+        reps: [reps, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.noZeroValidator, ExerciseValidators.integerOnlyValidator]],
+        rest: [rest, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.integerOnlyValidator,]],
+        weight: [weight, [ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator, ExerciseValidators.maxTwoDecimalsValidator]],
+        effort: [effort, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.noZeroValidator, ExerciseValidators.lowerOrEqualToHundred]],
       },
       {updateOn: 'change'});
   }

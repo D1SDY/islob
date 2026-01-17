@@ -1,0 +1,9 @@
+<div [class.active]="currentWeightSystem === WeightSystem.KG" class='weight-switch kg-switch'
+     (click)='switchWeightSystem(WeightSystem.KG)' >
+  kg
+</div >
+/
+<div [class.active]="currentWeightSystem === WeightSystem.LBS" class='weight-switch lbs-switch'
+     (click)='switchWeightSystem(WeightSystem.LBS)' >
+  lbs
+</div >

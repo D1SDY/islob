@@ -1,4 +1,4 @@
-import { Equipment, Exercise, ExerciseType, Location, MuscleGroup } from 'coaching-shared';
+import { Equipment, Exercise, ExerciseType, Location, MuscleGroup, WeightSystem } from 'coaching-shared';
 
 export const LIST_OF_EXERCISES: Exercise[] = [
   {
@@ -8,6 +8,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
   {
     name: 'Squat',
@@ -16,6 +17,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
   {
     name: 'Deadlift',
@@ -24,6 +26,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
   {
     name: 'Pull-Up',
@@ -32,6 +35,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
   {
     name: 'Shoulder Press',
@@ -40,6 +44,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
   {
     name: 'Bicep Curl',
@@ -48,6 +53,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.ISOLATION,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
   {
     name: 'Skull Crusher',
@@ -56,6 +62,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.ISOLATION,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
   {
     name: 'Lunge',
@@ -64,6 +71,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
   {
     name: 'Plank',
@@ -72,6 +80,7 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.ISOLATION,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
   {
     name: 'Lat Pulldown',
@@ -80,5 +89,6 @@ export const LIST_OF_EXERCISES: Exercise[] = [
     location: Location.GYM,
     exerciseType: ExerciseType.BASIC,
     link: 'https://www.youtube.com/shorts/FVZx9lfnYOM',
+    weightSystem: WeightSystem.KG,
   },
 ];

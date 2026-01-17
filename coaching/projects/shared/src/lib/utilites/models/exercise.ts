@@ -1,7 +1,8 @@
+import { Equipment }    from '../enums/equipment';
 import { ExerciseType } from '../enums/exercise-type.enum';
 import { Location }     from '../enums/location';
 import { MuscleGroup }  from '../enums/muscle.group';
-import { Equipment }    from '../enums/equipment';
+import { WeightSystem } from '../enums/weight-system';
 
 export interface Exercise {
   name: string;
@@ -9,6 +10,7 @@ export interface Exercise {
   equipment: Equipment;
   location: Location;
   exerciseType: ExerciseType;
+  weightSystem: WeightSystem;
   images?: string[];
   link?: string;
 }

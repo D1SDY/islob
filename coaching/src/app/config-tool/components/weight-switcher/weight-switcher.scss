@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  flex-direction: row;
+
+  .weight-switch {
+    font-weight: 300;
+    color: grey;
+  }
+
+  .active {
+    color: black;
+    font-weight: 500;
+  }
+
+}
