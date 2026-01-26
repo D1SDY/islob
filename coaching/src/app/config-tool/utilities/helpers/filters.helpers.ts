@@ -7,8 +7,8 @@ export function applyActiveFilters(filters: ConfigToolFilters, exercises: Exerci
 
   return exercises.filter(exercise => {
     if (search && !exercise.name.toLowerCase().includes(search)) return false;
-    if (filters?.muscle?.length > 0 && !filters.muscle?.includes(exercise.muscleGroup)) return false;
-    if (filters?.equipment?.length > 0 && !filters.equipment?.includes(exercise.equipment)) return false;
+    if (filters?.muscleGroup?.length > 0 && !filters.muscleGroup?.includes(exercise.muscleGroup)) return false;
+    if (filters?.loadType?.length > 0 && !filters.loadType?.includes(exercise.loadType)) return false;
     return true;
   });
 }

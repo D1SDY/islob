@@ -1,4 +1,4 @@
-export enum Location {
+export enum LocationEnum {
   GYM = 'GYM',
   HOME = 'HOME',
 }

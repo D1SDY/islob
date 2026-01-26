@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, effect, input, output } from '@angular/core';
-import { WeightSystem }                                              from 'coaching-shared';
+import { WeightSystemEnum }                                          from 'coaching-shared';
 
 @Component({
   selector: 'weight-switcher',
@@ -8,11 +8,11 @@ import { WeightSystem }                                              from 'coach
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WeightSwitcher {
-  activeWeightSystem = input.required<WeightSystem>();
+  activeWeightSystem = input.required<WeightSystemEnum>();
 
-  weightSystemChanged = output<WeightSystem>();
+  weightSystemChanged = output<WeightSystemEnum>();
 
-  currentWeightSystem: WeightSystem = WeightSystem.KG;
+  currentWeightSystem: WeightSystemEnum = WeightSystemEnum.KG;
 
   constructor() {
     effect(() => {
@@ -20,10 +20,10 @@ export class WeightSwitcher {
     });
   }
 
-  switchWeightSystem(system: WeightSystem): void {
+  switchWeightSystem(system: WeightSystemEnum): void {
     this.currentWeightSystem = system;
     this.weightSystemChanged.emit(system);
   }
 
-  protected readonly WeightSystem = WeightSystem;
+  protected readonly WeightSystem = WeightSystemEnum;
 }

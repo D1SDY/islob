@@ -12,6 +12,28 @@
     </mat-autocomplete>
   </mat-form-field>
 
+  <mat-form-field appearance="outline" >
+    <mat-label >Muscle</mat-label >
+    <mat-select formControlName="muscleGroup" multiple >
+      @for (muscleOption of muscleGroupOptions; track muscleOption.value) {
+        <mat-option [value]="muscleOption.value" >
+          {{ muscleOption.label }}
+        </mat-option >
+      }
+    </mat-select >
+  </mat-form-field >
+
+  <mat-form-field appearance="outline" >
+    <mat-label >Body Position</mat-label >
+    <mat-select formControlName="bodyPosition" multiple >
+      @for (bodyPosition of bodyPositionsOptions; track bodyPosition.value) {
+        <mat-option [value]="bodyPosition.value" >
+          {{ bodyPosition.label }}
+        </mat-option >
+      }
+    </mat-select >
+  </mat-form-field >
+
   <mat-form-field appearance="outline">
     <mat-label>Location</mat-label>
     <mat-select formControlName="location" multiple>
@@ -23,23 +45,34 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Equipment</mat-label>
-    <mat-select formControlName="equipment" multiple>
-      @for (equipmentOption of equipmentOptions; track equipmentOption.value) {
-        <mat-option [value]="equipmentOption.value">
-          {{ equipmentOption.label }}
-        </mat-option>
+  <mat-form-field appearance="outline" >
+    <mat-label >Unilateral Type</mat-label >
+    <mat-select formControlName="unilateralType" multiple >
+      @for (unilateralType of unilateralTypeOptions; track unilateralType.value) {
+        <mat-option [value]="unilateralType.value" >
+          {{ unilateralType.label }}
+        </mat-option >
       }
-    </mat-select>
-  </mat-form-field>
+    </mat-select >
+  </mat-form-field >
+
+  <mat-form-field appearance="outline" >
+    <mat-label >Joint Complexity</mat-label >
+    <mat-select formControlName="jointComplexity" multiple >
+      @for (jointComplexity of jointComplexityOptions; track jointComplexity.value) {
+        <mat-option [value]="jointComplexity.value" >
+          {{ jointComplexity.label }}
+        </mat-option >
+      }
+    </mat-select >
+  </mat-form-field >
 
   <mat-form-field appearance="outline">
-    <mat-label>Muscle</mat-label>
-    <mat-select formControlName="muscle" multiple>
-      @for (muscleOption of muscleGroupOptions; track muscleOption.value) {
-        <mat-option [value]="muscleOption.value">
-          {{ muscleOption.label }}
+    <mat-label >Load Type</mat-label >
+    <mat-select formControlName="loadType" multiple >
+      @for (loadType of loadTypeOptions; track loadType.value) {
+        <mat-option [value]="loadType.value" >
+          {{ loadType.label }}
         </mat-option>
       }
     </mat-select>

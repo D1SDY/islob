@@ -3,7 +3,7 @@ import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, Validat
 import { MatButton }                                                                  from '@angular/material/button';
 import { MatIcon }                                                                    from '@angular/material/icon';
 import { MatTooltip }                                                                 from '@angular/material/tooltip';
-import { DialogService, Exercise, WeightSystem }                                      from 'coaching-shared';
+import { DialogService, Exercise, WeightSystemEnum }                                  from 'coaching-shared';
 import * as ExerciseValidators
                                                                                       from '../../utilities/helpers/exercise-validations';
 import {
@@ -76,7 +76,7 @@ export class ExerciseLayout implements OnInit {
     return control.invalid && (control.dirty || control.touched);
   }
 
-  weightSystemChanged(weightSystem: WeightSystem): void {
+  weightSystemChanged(weightSystem: WeightSystemEnum): void {
     this.exercise().weightSystem = weightSystem;
   }
 

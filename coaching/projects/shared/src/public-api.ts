@@ -1,8 +1,12 @@
-export * from './lib/utilites/enums/equipment';
-export * from './lib/utilites/enums/muscle.group';
-export * from './lib/utilites/enums/location';
+export * from './lib/utilites/enums/load-type.enum';
+export * from './lib/utilites/enums/muscle-group.enum';
+export * from './lib/utilites/enums/location.enum';
 export * from './lib/utilites/enums/exercise-type.enum';
-export * from './lib/utilites/enums/weight-system';
+export * from './lib/utilites/enums/weight-system.enum';
+export * from './lib/utilites/enums/body-position.enum';
+export * from './lib/utilites/enums/joint-complexity.enum';
+export * from './lib/utilites/enums/load-type.enum';
+export * from './lib/utilites/enums/unilateral-type.enum';
 
 export * from './lib/utilites/models/exercise';
 export * from './lib/utilites/models/translations';

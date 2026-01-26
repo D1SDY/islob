@@ -1,4 +1,4 @@
-export enum ExerciseType {
+export enum ExerciseTypeEnum {
   BASIC = "BASIC",
   ISOLATION = "ISOLATION",
   MOBILITY = "MOBILITY",

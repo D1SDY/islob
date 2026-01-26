@@ -1,7 +1,10 @@
 export interface ConfigToolFilters {
   search: string;
-  equipment: string[];
-  muscle: string[] ;
+  muscleGroup: string[];
+  bodyPosition: string[];
   location: string[];
+  unilateralType: string[];
+  jointComplexity: string[];
+  loadType: string[];
   exerciseType: string[];
 }
