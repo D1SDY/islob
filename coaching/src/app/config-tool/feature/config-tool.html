@@ -2,7 +2,7 @@
   <mat-drawer #drawer mode="side" class="drawer">
     <app-config-tool-filters-layout [autoCompleteOptions]="autoCompleteOptions()"
                                     (filtersApplied)="applyFilters($event)"/>
-    <app-config-tool-exersise-list [connectedTo]="['workoutList']" [exercises]="exercises()"
+    <app-config-tool-exercise-list [connectedTo]="['workoutList']" [exercises]="exercises()"
                                    (addedExercise)="addExercise($event)" />
   </mat-drawer>
 
@@ -12,6 +12,8 @@
     </button>
     <app-workout-layout [connectedTo]="['configList']" [workouts]="workouts()"
                         [(selectedTab)]="selectedTab"
+                        (exerciseAdded)='addExercise($event)'
+                        (exerciseDeleted)="deleteExercise($event)"
                         (workoutAdded)="addWorkout()"
                         (workoutDeleted)="deleteWorkout($event)" />
   </div>

@@ -1,15 +1,26 @@
-import {provideHttpClient} from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import {
   APP_INITIALIZER,
-  ApplicationConfig,
+  ApplicationConfig, isDevMode,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection
 } from '@angular/core';
-import {MatIconRegistry} from '@angular/material/icon';
-import {DomSanitizer} from '@angular/platform-browser';
-import {provideRouter} from '@angular/router';
+import {
+  MatIconRegistry
+}                            from '@angular/material/icon';
+import {
+  DomSanitizer
+}                            from '@angular/platform-browser';
+import {
+  provideRouter
+}                            from '@angular/router';
+import {
+  provideStore
+}                            from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
-import {routes} from './app.routes';
+import { routes }            from './app.routes';
+import { configToolReducer } from './config-tool/data-access/config-tool.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,7 +33,13 @@ export const appConfig: ApplicationConfig = {
       useFactory: registerIcons,
       deps: [MatIconRegistry, DomSanitizer],
       multi: true,
-    }
+    },
+    provideStore(),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      // connectInZone: true, // optional (see note below)
+    }),
   ],
 };
 

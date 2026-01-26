@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfigToolExersiseList } from './config-tool-exersise-list';
+import { ConfigToolExerciseList } from './config-tool-exercise-list.component';
 
 describe('ConfigToolExersiseList', () => {
-  let component: ConfigToolExersiseList;
-  let fixture: ComponentFixture<ConfigToolExersiseList>;
+  let component: ConfigToolExerciseList;
+  let fixture: ComponentFixture<ConfigToolExerciseList>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConfigToolExersiseList]
+      imports: [ConfigToolExerciseList]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ConfigToolExersiseList);
+    fixture = TestBed.createComponent(ConfigToolExerciseList);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

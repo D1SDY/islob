@@ -34,6 +34,9 @@ export class WorkoutLayout {
   workoutAdded = output();
   workoutDeleted = output<number>();
 
+  exerciseAdded = output<Exercise>();
+  exerciseDeleted = output<string>();
+
 
   workoutLabel(index: number): string {
     return index === 0 ? 'Mobility' : `${index} Workout`;
@@ -43,13 +46,7 @@ export class WorkoutLayout {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else if (this.workouts()[this.selectedTab()].length < EXERCISE_LIMIT) {
-      copyArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-
+      this.exerciseAdded.emit(event.previousContainer.data[event.previousIndex]);
     }
   }
 
@@ -67,7 +64,8 @@ export class WorkoutLayout {
     return this.workouts().length === WORKOUT_LIMIT + 1;
   }
 
-  deleteExercise(exerciseName: string): void {
-    this.workouts()[this.selectedTab()].splice(this.workouts()[this.selectedTab()].findIndex(exercise => exercise.name === exerciseName), 1);
+  deleteExercise(name: string): void {
+    this.exerciseDeleted.emit(name)
+    // this.workouts()[this.selectedTab()].splice(this.workouts()[this.selectedTab()].findIndex(exercise => exercise.name === exerciseName), 1);
   }
 }

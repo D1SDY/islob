@@ -1,13 +1,19 @@
-import { Component, computed, signal }   from '@angular/core';
-import { MatButton }                     from '@angular/material/button';
-import { MatDrawer, MatDrawerContainer } from '@angular/material/sidenav';
-import { Exercise, EXERCISE_LIMIT } from 'coaching-shared';
-import { ConfigToolExersiseList }        from '../components/config-tool-exersise-list/config-tool-exersise-list';
-import { ConfigToolFiltersLayout }       from '../components/config-tool-filters-layout/config-tool-filters-layout';
-import { WorkoutLayout }                 from '../components/workout-layout/workout-layout';
-import { applyActiveFilters }            from '../utilities/helpers/filters.helpers';
-import { ConfigToolFilters }             from '../utilities/models/config-tool-filters';
-import { LIST_OF_EXERCISES }             from './temp';
+import { Component, computed, inject, signal }          from '@angular/core';
+import { MatButton }                                    from '@angular/material/button';
+import { MatDrawer, MatDrawerContainer }                from '@angular/material/sidenav';
+import { Store }                                        from '@ngrx/store';
+import { Exercise, EXERCISE_LIMIT }                     from 'coaching-shared';
+import {
+  ConfigToolExerciseList
+}                                                       from '../components/config-tool-exersise-list/config-tool-exercise-list.component';
+import {
+  ConfigToolFiltersLayout
+}                                                       from '../components/config-tool-filters-layout/config-tool-filters-layout';
+import { WorkoutLayout }                                from '../components/workout-layout/workout-layout';
+import * as ConfigToolActions                           from '../data-access/config-tool.actions';
+import { selectActiveWorkoutBuild, selectAllExercises } from '../data-access/config-tool.selectors';
+import { applyActiveFilters }                           from '../utilities/helpers/filters.helpers';
+import { ConfigToolFilters }                            from '../utilities/models/config-tool-filters';
 
 @Component({
   selector: 'app-config-tool',
@@ -16,18 +22,22 @@ import { LIST_OF_EXERCISES }             from './temp';
     MatDrawer,
     MatButton,
     ConfigToolFiltersLayout,
-    ConfigToolExersiseList,
+    ConfigToolExerciseList,
     WorkoutLayout,
   ],
   templateUrl: './config-tool.html',
   styleUrl: './config-tool.scss',
 })
 export class ConfigTool {
+  private readonly store = inject<Store>(Store);
+
+  exerciseList = this.store.selectSignal(selectAllExercises);
+  workouts = this.store.selectSignal(selectActiveWorkoutBuild);
+
   filters = signal<ConfigToolFilters>({} as ConfigToolFilters);
-  workouts = signal<Exercise[][]>([[]]);
   selectedTab = signal(0);
 
-  exercises = computed(() => applyActiveFilters(this.filters(), LIST_OF_EXERCISES));
+  exercises = computed(() => applyActiveFilters(this.filters(), this.exerciseList()));
   autoCompleteOptions = computed(() => this.exercises().map(exercise => exercise.name));
 
 
@@ -38,18 +48,19 @@ export class ConfigTool {
   addExercise(exercise: Exercise): void {
     //Todo: add more fancy validator for the exercise to be added
     if (this.workouts()[this.selectedTab()].length < EXERCISE_LIMIT) {
-      this.workouts.update(current => {
-        current[this.selectedTab()].push(exercise);
-        return [...current];
-      });
+      this.store.dispatch(ConfigToolActions.addExerciseToWorkout({exercise, selectedTab: this.selectedTab()}));
     }
   }
 
-  addWorkout() {
+  deleteExercise(name: string): void {
+    this.store.dispatch(ConfigToolActions.deleteExercise({name, selectedTab: this.selectedTab()}));
+  }
+
+  addWorkout(): void {
     this.workouts().push([]);
   }
 
-  deleteWorkout(index: number) {
+  deleteWorkout(index: number): void {
     this.workouts().splice(index, 1);
   }
 
