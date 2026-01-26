@@ -2,16 +2,16 @@ import { ChangeDetectorRef, Component, inject, input, OnInit, output }          
 import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButton }                                                                  from '@angular/material/button';
 import { MatIcon }                                                                    from '@angular/material/icon';
-import { MatTooltip }             from '@angular/material/tooltip';
-import { Exercise, WeightSystem } from 'coaching-shared';
+import { MatTooltip }                                                                 from '@angular/material/tooltip';
+import { DialogService, Exercise, WeightSystem }                                      from 'coaching-shared';
 import * as ExerciseValidators
                                                                                       from '../../utilities/helpers/exercise-validations';
 import {
   getErrorText
-}                                 from '../../utilities/helpers/exercise-validations';
+}                                                                                     from '../../utilities/helpers/exercise-validations';
 import {
   WeightSwitcher
-}                                 from '../weight-switcher/weight-switcher';
+}                                                                                     from '../weight-switcher/weight-switcher';
 
 @Component({
   selector: 'app-exercise-layout',
@@ -29,10 +29,11 @@ import {
 export class ExerciseLayout implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly dialogService = inject(DialogService);
 
   exercise = input.required<Exercise>();
 
-  deleteExercise = output<string>();
+  deleteExerciseClicked = output<string>();
 
   private setsFormArray = this.fb.array([this.singleSet()]);
 
@@ -63,8 +64,11 @@ export class ExerciseLayout implements OnInit {
     }
   }
 
-  delete(): void {
-    this.deleteExercise.emit(this.exercise().name);
+  deleteExercise(): void {
+    this.dialogService.openConfirmDialog({
+      title: 'Delete Exercise',
+      content: 'Are you sure you want to delete this exercise?'
+    }).subscribe(confirmed => confirmed && this.deleteExerciseClicked.emit(this.exercise().name));
   }
 
   showError(control: AbstractControl | null): boolean {

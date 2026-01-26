@@ -1,5 +1,5 @@
 <div class="exercise-layout-container" >
-  <mat-icon class="close" svgIcon="cross" (click)='delete()'></mat-icon >
+  <mat-icon class="close" svgIcon="cross" (click)='deleteExercise()' ></mat-icon >
   <weight-switcher [activeWeightSystem]='exercise().weightSystem' (weightSystemChanged)='weightSystemChanged($event)' />
   <div class="images" >
     <div class="image-container" >

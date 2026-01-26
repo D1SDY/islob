@@ -57,11 +57,11 @@ export class ConfigTool {
   }
 
   addWorkout(): void {
-    this.workouts().push([]);
+    this.store.dispatch(ConfigToolActions.addWorkout());
   }
 
   deleteWorkout(index: number): void {
-    this.workouts().splice(index, 1);
+    this.store.dispatch(ConfigToolActions.deleteWorkout({index}));
   }
 
 }

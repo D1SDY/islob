@@ -1,26 +1,20 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient }    from '@angular/common/http';
 import {
   APP_INITIALIZER,
-  ApplicationConfig, isDevMode,
+  ApplicationConfig,
+  isDevMode,
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection
-} from '@angular/core';
-import {
-  MatIconRegistry
-}                            from '@angular/material/icon';
-import {
-  DomSanitizer
-}                            from '@angular/platform-browser';
-import {
-  provideRouter
-}                            from '@angular/router';
-import {
-  provideStore
-}                            from '@ngrx/store';
+}                               from '@angular/core';
+import { MatIconRegistry }      from '@angular/material/icon';
+import { DomSanitizer }         from '@angular/platform-browser';
+import { provideRouter }        from '@angular/router';
+import { provideEffects }       from '@ngrx/effects';
+import { provideStore }         from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes }            from './app.routes';
-import { configToolReducer } from './config-tool/data-access/config-tool.reducer';
+import { ConfigToolEffects } from './config-tool/data-access/config-tool.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -35,6 +29,7 @@ export const appConfig: ApplicationConfig = {
       multi: true,
     },
     provideStore(),
+    provideEffects(ConfigToolEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

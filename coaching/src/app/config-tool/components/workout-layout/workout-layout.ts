@@ -1,13 +1,11 @@
-import { CdkDrag, CdkDragDrop, CdkDropList, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, input, model, output }         from '@angular/core';
-import { MatButton }                               from '@angular/material/button';
-import { MatIcon }                                 from '@angular/material/icon';
-import { MatTab, MatTabGroup }                     from '@angular/material/tabs';
-import { Exercise, EXERCISE_LIMIT, WORKOUT_LIMIT } from 'coaching-shared';
-import {
-  ExcerciseContainer
-}                                                  from '../excercise-container/excercise-container';
-import { ExerciseLayout }                          from '../exercise-layout/exercise-layout';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray }     from '@angular/cdk/drag-drop';
+import { Component, inject, input, model, output }                from '@angular/core';
+import { MatButton }                                              from '@angular/material/button';
+import { MatIcon }                                                from '@angular/material/icon';
+import { MatTab, MatTabGroup }                                    from '@angular/material/tabs';
+import { DialogService, Exercise, EXERCISE_LIMIT, WORKOUT_LIMIT } from 'coaching-shared';
+import { ExcerciseContainer }                                     from '../excercise-container/excercise-container';
+import { ExerciseLayout }                                         from '../exercise-layout/exercise-layout';
 
 @Component({
   selector: 'app-workout-layout',
@@ -25,6 +23,7 @@ import { ExerciseLayout }                          from '../exercise-layout/exer
   styleUrl: './workout-layout.scss',
 })
 export class WorkoutLayout {
+  private readonly dialogService = inject(DialogService);
 
   connectedTo = input.required<string[]>();
   workouts = input.required<Exercise[][]>();
@@ -56,8 +55,17 @@ export class WorkoutLayout {
   }
 
   deleteWorkout(index: number): void {
-    this.workoutDeleted.emit(index);
-    this.selectedTab.set(index);
+    this.dialogService.openConfirmDialog(
+      {
+        title: 'Delete Workout Day',
+        content: 'Are you sure you want to delete this workout day?'
+      }).subscribe(
+      confirmed => {
+        if (confirmed) {
+          this.workoutDeleted.emit(index);
+          this.selectedTab.set(index - 1);
+        }
+      });
   }
 
   isWorkoutLimit(): boolean {

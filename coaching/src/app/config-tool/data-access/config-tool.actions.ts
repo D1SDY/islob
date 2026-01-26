@@ -4,6 +4,8 @@ import { Exercise }            from 'coaching-shared';
 export const deleteExercise = createAction('[ConfigTool] Delete Exercise', props<{
   name: string, selectedTab: number}>());
 
-export const deleteDay = createAction('[ConfigTool] Delete Day');
-
 export const addExerciseToWorkout = createAction('[ConfigTool] Add Exercise To Workout', props<{ exercise: Exercise, selectedTab: number }>());
+
+export const addWorkout = createAction('[ConfigTool] Add Workout');
+
+export const deleteWorkout = createAction('[ConfigTool] Delete Workout', props<{ index: number }>());
