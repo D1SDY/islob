@@ -1,4 +1,4 @@
-<button matButton (click)="addWorkout()" [disabled]="isWorkoutLimit()" >Add workout</button >
+<button matButton (click)="addWorkout()" [disabled]="isWorkoutLimit" >Add workout</button >
 
 <div
   cdkDropList
@@ -13,6 +13,9 @@
       <mat-tab [label]='workoutLabel(index)' >
         @if (index !== 0) {
           <button matButton (click)="deleteWorkout(index)" >Delete</button >
+          @if (!isWorkoutLimit) {
+            <button matButton (click)="copyWorkout(index)" >Copy Workout</button >
+          }
         }
         <button matButton (click)="clearWorkout(index)" >Clear Workout</button >
         <div class="workout-container" >

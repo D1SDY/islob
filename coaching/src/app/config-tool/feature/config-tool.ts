@@ -68,4 +68,8 @@ export class ConfigTool {
     this.store.dispatch(ConfigToolActions.clearWorkout({index}));
   }
 
+  copyWorkout(index: number): void {
+    this.store.dispatch(ConfigToolActions.copyWorkout({index}));
+  }
+
 }

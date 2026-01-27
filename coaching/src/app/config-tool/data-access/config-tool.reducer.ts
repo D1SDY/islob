@@ -41,6 +41,11 @@ export const configToolReducer = createReducer(
     const activeWorkoutBuild = [...state.activeWorkoutBuild];
     activeWorkoutBuild[props.index] = [];
     return {...state, activeWorkoutBuild};
+  }),
+  on(ConfigToolActions.copyWorkout, (state, props) => {
+    const activeWorkoutBuild = [...state.activeWorkoutBuild];
+    activeWorkoutBuild.push(activeWorkoutBuild[props.index]);
+    return {...state, activeWorkoutBuild};
   })
 );
 

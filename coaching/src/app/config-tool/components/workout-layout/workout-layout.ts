@@ -33,6 +33,7 @@ export class WorkoutLayout {
   workoutAdded = output();
   workoutDeleted = output<number>();
   workoutCleared = output<number>();
+  workoutCopied = output<number>();
 
   exerciseAdded = output<Exercise>();
   exerciseDeleted = output<string>();
@@ -69,7 +70,7 @@ export class WorkoutLayout {
       });
   }
 
-  isWorkoutLimit(): boolean {
+  get isWorkoutLimit(): boolean {
     return this.workouts().length === WORKOUT_LIMIT + 1;
   }
 
@@ -80,5 +81,9 @@ export class WorkoutLayout {
 
   clearWorkout(index: number): void {
     this.workoutCleared.emit(index);
+  }
+
+  copyWorkout(index: number): void {
+    this.workoutCopied.emit(index);
   }
 }

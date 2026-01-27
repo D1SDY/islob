@@ -11,3 +11,5 @@ export const addWorkout = createAction('[ConfigTool] Add Workout');
 export const deleteWorkout = createAction('[ConfigTool] Delete Workout', props<{ index: number }>());
 
 export const clearWorkout = createAction('[ConfigTool] Clear Workout', props<{ index: number }>());
+
+export const copyWorkout = createAction('[ConfigTool] Copy Workout', props<{ index: number }>());
