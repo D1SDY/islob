@@ -2,6 +2,7 @@ import { AsyncPipe }                                   from '@angular/common';
 import { Component, inject, input, OnInit, output }    from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteTrigger }     from '@angular/material/autocomplete';
+import { MatButton }                                   from '@angular/material/button';
 import { MatFormField, MatInput, MatLabel }            from '@angular/material/input';
 import { MatOption, MatSelect }                        from '@angular/material/select';
 import {
@@ -30,7 +31,8 @@ import { TranslationService }                          from '../../utilities/ser
     MatOption,
     MatAutocompleteTrigger,
     MatAutocomplete,
-    AsyncPipe
+    AsyncPipe,
+    MatButton
   ],
   templateUrl: './config-tool-filters-layout.html',
   styleUrl: './config-tool-filters-layout.scss',
@@ -64,12 +66,16 @@ export class ConfigToolFiltersLayout implements OnInit {
     this.filters.valueChanges.subscribe(() => this.applyFilters());
   }
 
+  resetFilters(): void {
+    this.filters.reset();
+  }
+
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.autoCompleteOptions().filter(option => option.toLowerCase().includes(filterValue));
   }
-
 
   protected applyFilters() {
     this.filtersApplied.emit(this.filters.getRawValue());
