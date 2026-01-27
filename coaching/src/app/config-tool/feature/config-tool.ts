@@ -64,4 +64,8 @@ export class ConfigTool {
     this.store.dispatch(ConfigToolActions.deleteWorkout({index}));
   }
 
+  clearWorkout(index: number): void {
+    this.store.dispatch(ConfigToolActions.clearWorkout({index}));
+  }
+
 }

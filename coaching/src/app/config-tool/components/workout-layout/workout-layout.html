@@ -14,6 +14,7 @@
         @if (index !== 0) {
           <button matButton (click)="deleteWorkout(index)" >Delete</button >
         }
+        <button matButton (click)="clearWorkout(index)" >Clear Workout</button >
         <div class="workout-container" >
           @if (workout.length === 0) {
             <app-excercise-container >

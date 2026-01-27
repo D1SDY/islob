@@ -32,6 +32,7 @@ export class WorkoutLayout {
 
   workoutAdded = output();
   workoutDeleted = output<number>();
+  workoutCleared = output<number>();
 
   exerciseAdded = output<Exercise>();
   exerciseDeleted = output<string>();
@@ -73,7 +74,11 @@ export class WorkoutLayout {
   }
 
   deleteExercise(name: string): void {
-    this.exerciseDeleted.emit(name)
+    this.exerciseDeleted.emit(name);
     // this.workouts()[this.selectedTab()].splice(this.workouts()[this.selectedTab()].findIndex(exercise => exercise.name === exerciseName), 1);
+  }
+
+  clearWorkout(index: number): void {
+    this.workoutCleared.emit(index);
   }
 }
