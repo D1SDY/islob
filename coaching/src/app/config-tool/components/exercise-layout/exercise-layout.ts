@@ -1,17 +1,26 @@
-import { ChangeDetectorRef, Component, inject, input, OnInit, output }                from '@angular/core';
-import { AbstractControl, FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButton }                                                                  from '@angular/material/button';
-import { MatIcon }                                                                    from '@angular/material/icon';
-import { MatTooltip }                                                                 from '@angular/material/tooltip';
-import { DialogService, Exercise, WeightSystemEnum }                                  from 'coaching-shared';
+import { ChangeDetectorRef, Component, computed, inject, input, OnInit, output }                 from '@angular/core';
+import { AbstractControl, FormArray, FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  MatButton
+}                                                                                                from '@angular/material/button';
+import {
+  MatIcon
+}                                                                                                from '@angular/material/icon';
+import {
+  MatTooltip
+}                                                                                                from '@angular/material/tooltip';
+import { DialogService, Exercise, WeightSystemEnum }                                             from 'coaching-shared';
 import * as ExerciseValidators
-                                                                                      from '../../utilities/helpers/exercise-validations';
+                                                                                                 from '../../utilities/helpers/exercise-validations';
 import {
   getErrorText
-}                                                                                     from '../../utilities/helpers/exercise-validations';
+}                                                                                                from '../../utilities/helpers/exercise-validations';
+import {
+  ExerciseSet
+}                                                                                                from '../../utilities/models/exercise';
 import {
   WeightSwitcher
-}                                                                                     from '../weight-switcher/weight-switcher';
+}                                                                                                from '../weight-switcher/weight-switcher';
 
 @Component({
   selector: 'app-exercise-layout',
@@ -32,12 +41,16 @@ export class ExerciseLayout implements OnInit {
   private readonly dialogService = inject(DialogService);
 
   exercise = input.required<Exercise>();
+  tabIndex = input<number>();
 
   deleteExerciseClicked = output<string>();
 
-  private setsFormArray = this.fb.array([this.singleSet()]);
+  isMobilityTab = computed(() => this.tabIndex() === 0);
+
+  private setsFormArray: FormArray<ExerciseSet>;
 
   ngOnInit(): void {
+    this.setsFormArray = this.fb.array([this.singleSet()]);
     this.setsFormArray.valueChanges.subscribe(() => this.cdr.markForCheck());
   }
 
@@ -85,12 +98,22 @@ export class ExerciseLayout implements OnInit {
   }
 
   private singleSet(reps = null, rest = null, weight = null, effort = null) {
-    return this.fb.group({
+    const baseControls = this.fb.group({
         reps: [reps, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.noZeroValidator, ExerciseValidators.integerOnlyValidator]],
         rest: [rest, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.integerOnlyValidator,]],
+      },
+      {updateOn: 'change'});
+
+    const extraControls = this.fb.group({
         weight: [weight, [ExerciseValidators.noNegativeValidator, ExerciseValidators.maxTwoDecimalsValidator, ExerciseValidators.maxTwoDecimalsValidator]],
         effort: [effort, [Validators.required, ExerciseValidators.noNegativeValidator, ExerciseValidators.noZeroValidator, ExerciseValidators.lowerOrEqualToHundred]],
       },
       {updateOn: 'change'});
+
+
+    return this.fb.group({
+      ...baseControls.controls,
+      ...(this.isMobilityTab() ? {} : extraControls.controls),
+    });
   }
 }

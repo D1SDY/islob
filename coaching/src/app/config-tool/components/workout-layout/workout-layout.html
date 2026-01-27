@@ -25,7 +25,8 @@
             </app-excercise-container >
           }
           @for (exercise of workout; track exercise.name) {
-            <app-exercise-layout cdkDrag [exercise]="exercise" (deleteExerciseClicked)='deleteExercise($event)' />
+            <app-exercise-layout cdkDrag [exercise]="exercise" (deleteExerciseClicked)='deleteExercise($event)'
+                                 [tabIndex]='index' />
           }
         </div >
       </mat-tab >

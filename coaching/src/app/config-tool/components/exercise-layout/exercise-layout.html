@@ -23,14 +23,16 @@
           <label >Rest (s)</label >
           <input [formControl]="set.controls.rest" [class.invalid]='showError(set.controls.rest)'>
         </div >
-        <div class="control-container" [matTooltip]='validationsInfoMessage(set.controls.weight)'>
+        @if (!isMobilityTab()) {
+          <div class="control-container" [matTooltip]='validationsInfoMessage(set.controls.weight)' >
           <label >Weight</label >
-          <input [formControl]="set.controls.weight" [class.invalid]='showError(set.controls.weight)'>
+            <input [formControl]="set.controls.weight" [class.invalid]='showError(set.controls.weight)' >
         </div >
-        <div class="control-container percent-input" [matTooltip]='validationsInfoMessage(set.controls.effort)'>
+          <div class="control-container percent-input" [matTooltip]='validationsInfoMessage(set.controls.effort)' >
           <label >Effort</label >
-          <input [formControl]="set.controls.effort" [class.invalid]='showError(set.controls.effort)'>
+            <input [formControl]="set.controls.effort" [class.invalid]='showError(set.controls.effort)' >
         </div >
+        }
         <div class="actions" >
           <mat-icon svgIcon="stack" (click)="copySet(i)" ></mat-icon >
           <mat-icon svgIcon="delete" (click)="deleteSet(i)" ></mat-icon >
