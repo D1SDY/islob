@@ -12,12 +12,14 @@
     @for (workout of workouts(); track workout; let index = $index) {
       <mat-tab [label]='workoutLabel(index)' >
         @if (index !== 0) {
-          <button matButton (click)="deleteWorkout(index)" >Delete</button >
+          <button matButton (click)="deleteWorkout(index)" >Delete Workout</button >
           @if (!isWorkoutLimit) {
             <button matButton (click)="copyWorkout(index)" >Copy Workout</button >
           }
         }
-        <button matButton (click)="clearWorkout(index)" >Clear Workout</button >
+        @if (workout.length > 0) {
+          <button matButton (click)="clearWorkout(index)" >Clear Workout</button >
+        }
         <div class="workout-container" >
           @if (workout.length === 0) {
             <app-excercise-container >
