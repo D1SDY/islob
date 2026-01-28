@@ -93,3 +93,11 @@
 
 <!--  <button matButton type="submit">Apply Filters</button>-->
 </form>
+
+<div class='active-filters' >
+  <mat-chip-set aria-label="Active filters" >
+    @for (chip of activeFilters(); track chip) {
+      <mat-chip >{{ chip }}</mat-chip >
+    }
+  </mat-chip-set >
+</div >

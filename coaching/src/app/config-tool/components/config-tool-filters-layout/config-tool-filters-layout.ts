@@ -1,10 +1,11 @@
-import { AsyncPipe }                                   from '@angular/common';
-import { Component, inject, input, OnInit, output }    from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatAutocomplete, MatAutocompleteTrigger }     from '@angular/material/autocomplete';
-import { MatButton }                                   from '@angular/material/button';
-import { MatFormField, MatInput, MatLabel }            from '@angular/material/input';
-import { MatOption, MatSelect }                        from '@angular/material/select';
+import { AsyncPipe }                                        from '@angular/common';
+import { Component, inject, input, OnInit, output, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule }      from '@angular/forms';
+import { MatAutocomplete, MatAutocompleteTrigger }          from '@angular/material/autocomplete';
+import { MatButton }                                        from '@angular/material/button';
+import { MatChip, MatChipSet }                              from '@angular/material/chips';
+import { MatFormField, MatInput, MatLabel }                 from '@angular/material/input';
+import { MatOption, MatSelect }                             from '@angular/material/select';
 import {
   BodyPositionEnum,
   ExerciseTypeEnum,
@@ -13,12 +14,12 @@ import {
   LocationEnum,
   MuscleGroupEnum,
   UniLateralTypeEnum
-}                                                      from 'coaching-shared';
-import { map, Observable, startWith, tap }             from 'rxjs';
-import { buildDropDownOptions }                        from '../../utilities/helpers/filters.helpers';
-import { ConfigToolFilters }                           from '../../utilities/models/config-tool-filters';
-import { ConfigToolTranslations }                      from '../../utilities/models/config-tool-translations';
-import { TranslationService }                          from '../../utilities/services/translation.service';
+}                                                           from 'coaching-shared';
+import { map, Observable, startWith, tap }                  from 'rxjs';
+import { buildDropDownOptions }                             from '../../utilities/helpers/filters.helpers';
+import { ConfigToolFilters }                                from '../../utilities/models/config-tool-filters';
+import { ConfigToolTranslations }                           from '../../utilities/models/config-tool-translations';
+import { TranslationService }                               from '../../utilities/services/translation.service';
 
 @Component({
   selector: 'app-config-tool-filters-layout',
@@ -32,7 +33,9 @@ import { TranslationService }                          from '../../utilities/ser
     MatAutocompleteTrigger,
     MatAutocomplete,
     AsyncPipe,
-    MatButton
+    MatButton,
+    MatChipSet,
+    MatChip
   ],
   templateUrl: './config-tool-filters-layout.html',
   styleUrl: './config-tool-filters-layout.scss',
@@ -44,6 +47,8 @@ export class ConfigToolFiltersLayout implements OnInit {
   autoCompleteOptions = input.required<string[]>();
 
   filtersApplied = output<ConfigToolFilters>();
+
+  activeFilters = signal<string[]>([]);
 
   filters = new FormGroup({
     search: new FormControl('', {nonNullable: true}),
@@ -63,7 +68,10 @@ export class ConfigToolFiltersLayout implements OnInit {
       map(value => this._filter(value || '')),
       tap(() => this.applyFilters()),
     );
-    this.filters.valueChanges.subscribe(() => this.applyFilters());
+    this.filters.valueChanges.subscribe(() => {
+      this.applyFilters();
+      this.extractChipsData(this.filters.getRawValue());
+    });
   }
 
   resetFilters(): void {
@@ -107,5 +115,11 @@ export class ConfigToolFiltersLayout implements OnInit {
 
   protected get jointComplexityOptions() {
     return buildDropDownOptions(this.translations, Object.keys(JointComplexityEnum));
+  }
+
+  private extractChipsData(filters: ConfigToolFilters) {
+    const {search, ...chipsData} = filters;
+    const chipsDataKeys = Object.values(chipsData).flat();
+    this.activeFilters.set(chipsDataKeys.map(key => this.translations[key]));
   }
 }
