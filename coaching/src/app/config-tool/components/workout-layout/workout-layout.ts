@@ -80,7 +80,16 @@ export class WorkoutLayout {
   }
 
   clearWorkout(index: number): void {
-    this.workoutCleared.emit(index);
+    this.dialogService.openConfirmDialog(
+      {
+        title: 'Clear Workout Day',
+        content: 'Are you sure you want to clear this workout day?'
+      }).subscribe(
+      confirmed => {
+        if (confirmed) {
+          this.workoutCleared.emit(index);
+        }
+      });
   }
 
   copyWorkout(index: number): void {
