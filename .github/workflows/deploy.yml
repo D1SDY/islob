@@ -2,7 +2,7 @@ name: Deploy Angular app to GitHub Pages
 
 on:
   push:
-    branches: [ main ]   # change to [ master ] if your main branch is named master
+    branches: [ main ]      # change to [ master ] if needed
   workflow_dispatch:
 
 permissions:
@@ -18,11 +18,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # All `run:` steps below will execute inside the coaching folder
-    defaults:
-      run:
-        working-directory: coaching
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,21 +27,33 @@ jobs:
         with:
           node-version: 20
           cache: npm
-          # <<<<<< point cache to the right lock file
+          # lockfile is inside the coaching folder
           cache-dependency-path: coaching/package-lock.json
 
       - name: Install dependencies
+        working-directory: coaching
         run: npm ci
 
       - name: Build Angular app
+        working-directory: coaching
         run: npm run build -- --configuration=production --base-href=/coaching/
-        # If your repo name is NOT "coaching", replace /coaching/ with /<your-repo-name>/
+        # If your GitHub repo is NOT named "coaching", change /coaching/ to /<your-repo-name>/
+
+      # Optional: debug to verify build output
+      - name: List dist contents (debug)
+        run: |
+          ls
+          echo "---- coaching/dist ----"
+          ls coaching/dist || echo "no coaching/dist directory"
+          echo "---- coaching/dist/coaching ----"
+          ls coaching/dist/coaching || echo "no coaching/dist/coaching directory"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Adjust this if your outputPath in angular.json is different
-          path: dist/coaching/browser
+          # IMPORTANT: path is from repo root
+          # Angular default for this project: coaching/dist/coaching/browser
+          path: coaching/dist/coaching/browser
 
   deploy:
     needs: build
