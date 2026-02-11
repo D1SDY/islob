@@ -85,5 +85,6 @@ export class WorkoutLayout {
 
   copyWorkout(index: number): void {
     this.workoutCopied.emit(index);
+    this.selectedTab.set(index + 1);
   }
 }
