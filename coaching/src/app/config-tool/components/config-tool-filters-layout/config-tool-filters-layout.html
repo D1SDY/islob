@@ -97,7 +97,7 @@
 <div class='active-filters' >
   <mat-chip-set aria-label="Active filters" >
     @for (chip of activeFilters(); track chip) {
-      <mat-chip >{{ chip }}</mat-chip >
+      <mat-chip (dblclick)="onChipDoubleClick(chip)" >{{ chip }}</mat-chip >
     }
   </mat-chip-set >
 </div >

@@ -122,4 +122,27 @@ export class ConfigToolFiltersLayout implements OnInit {
     const chipsDataKeys = Object.values(chipsData).flat();
     this.activeFilters.set(chipsDataKeys.map(key => this.translations[key]));
   }
+
+  protected onChipDoubleClick(label: string): void {
+    const key = Object.keys(this.translations)
+                      .find(k => this.translations[k] === label);
+
+    if (!key) {
+      return;
+    }
+
+    const arrayControls = Object.keys(this.filters.controls);
+
+    arrayControls.forEach(controlName => {
+      const control = this.filters.controls[controlName] as FormControl<string[]>;
+      const current = control.value ?? [];
+      const index = current.indexOf(key);
+
+      if (index !== -1) {
+        const updated = [...current];
+        updated.splice(index, 1);
+        control.setValue(updated);
+      }
+    });
+  }
 }
