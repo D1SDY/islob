@@ -1,19 +1,20 @@
-import { Component, computed, inject, signal }          from '@angular/core';
-import { MatButton }                                    from '@angular/material/button';
-import { MatDrawer, MatDrawerContainer }                from '@angular/material/sidenav';
-import { Store }                                        from '@ngrx/store';
-import { Exercise, EXERCISE_LIMIT }                     from 'coaching-shared';
+import { Component, computed, inject, signal, viewChild }  from '@angular/core';
+import { MatButton }                                       from '@angular/material/button';
+import { MatDrawer, MatDrawerContainer, MatDrawerContent } from '@angular/material/sidenav';
+import { Store }                                           from '@ngrx/store';
+import { Exercise, EXERCISE_LIMIT }                        from 'coaching-shared';
 import {
   ConfigToolExerciseList
-}                                                       from '../components/config-tool-exersise-list/config-tool-exercise-list.component';
+}                                                          from '../components/config-tool-exersise-list/config-tool-exercise-list.component';
 import {
   ConfigToolFiltersLayout
-}                                                       from '../components/config-tool-filters-layout/config-tool-filters-layout';
-import { WorkoutLayout }                                from '../components/workout-layout/workout-layout';
-import * as ConfigToolActions                           from '../data-access/config-tool.actions';
-import { selectActiveWorkoutBuild, selectAllExercises } from '../data-access/config-tool.selectors';
-import { applyActiveFilters }                           from '../utilities/helpers/filters.helpers';
-import { ConfigToolFilters }                            from '../utilities/models/config-tool-filters';
+}                                                          from '../components/config-tool-filters-layout/config-tool-filters-layout';
+import { DrawerResizeDirective }                           from '../components/directives/drawer-resize-directive';
+import { WorkoutLayout }                                   from '../components/workout-layout/workout-layout';
+import * as ConfigToolActions                              from '../data-access/config-tool.actions';
+import { selectActiveWorkoutBuild, selectAllExercises }    from '../data-access/config-tool.selectors';
+import { applyActiveFilters }                              from '../utilities/helpers/filters.helpers';
+import { ConfigToolFilters }                               from '../utilities/models/config-tool-filters';
 
 @Component({
   selector: 'app-config-tool',
@@ -24,12 +25,16 @@ import { ConfigToolFilters }                            from '../utilities/model
     ConfigToolFiltersLayout,
     ConfigToolExerciseList,
     WorkoutLayout,
+    MatDrawerContent,
+    DrawerResizeDirective,
   ],
   templateUrl: './config-tool.html',
   styleUrl: './config-tool.scss',
 })
 export class ConfigTool {
   private readonly store = inject<Store>(Store);
+
+  drawer = viewChild<MatDrawer>(MatDrawer);
 
   exerciseList = this.store.selectSignal(selectAllExercises);
   workouts = this.store.selectSignal(selectActiveWorkoutBuild);
@@ -40,6 +45,23 @@ export class ConfigTool {
   exercises = computed(() => applyActiveFilters(this.filters(), this.exerciseList()));
   autoCompleteOptions = computed(() => this.exercises().map(exercise => exercise.name));
 
+  drawerWidth = signal(950);
+  contentPadding = signal(0);
+
+  onDrawerResize(newWidth: number): void {
+    this.drawerWidth.set(newWidth);
+    this.contentPadding.set(newWidth);
+  }
+
+  toggleDrawer(): void {
+    if (this.drawer().opened) {
+      this.drawer().close();
+      this.contentPadding.set(0);   // reset when closed
+    } else {
+      this.contentPadding.set(this.drawerWidth());
+      this.drawer().open();
+    }
+  }
 
   applyFilters(filters: ConfigToolFilters) {
     this.filters.set(filters);

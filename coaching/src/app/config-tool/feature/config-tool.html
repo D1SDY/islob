@@ -1,23 +1,35 @@
 <mat-drawer-container class="container">
-  <mat-drawer #drawer mode="side" class="drawer">
-    <app-config-tool-filters-layout [autoCompleteOptions]="autoCompleteOptions()"
-                                    (filtersApplied)="applyFilters($event)"/>
-    <app-config-tool-exercise-list [connectedTo]="['workoutList']" [exercises]="exercises()"
-                                   (addedExercise)="addExercise($event)" />
+  <mat-drawer #drawer mode="side" [style.width.px]="drawerWidth()" >
+    <div class="drawer" >
+      <app-config-tool-filters-layout [autoCompleteOptions]="autoCompleteOptions()"
+                                      (filtersApplied)="applyFilters($event)" />
+      <app-config-tool-exercise-list [connectedTo]="['workoutList']" [exercises]="exercises()"
+                                     (addedExercise)="addExercise($event)" />
+      <div
+        class="drawer-resize-handle"
+        appDrawerResize
+        [startWidth]="drawerWidth()"
+        (widthChange)="onDrawerResize($event)"
+      ></div >
+    </div >
   </mat-drawer>
 
-  <div class="content">
-    <button type="button" matButton (click)="drawer.toggle()">
+  <mat-drawer-content class="content" [style.margin-left.px]='contentPadding()' >
+    <button type="button" matButton (click)="toggleDrawer()" >
       Toggle sidenav
     </button>
-    <app-workout-layout [connectedTo]="['configList']" [workouts]="workouts()"
-                        [(selectedTab)]="selectedTab"
-                        (exerciseAdded)='addExercise($event)'
-                        (exerciseDeleted)="deleteExercise($event)"
-                        (workoutAdded)="addWorkout()"
-                        (workoutDeleted)="deleteWorkout($event)"
-                        (workoutCleared)='clearWorkout($event)'
-                        (workoutCopied)='copyWorkout($event)' />
-  </div>
+
+    <app-workout-layout
+      [connectedTo]="['configList']"
+      [workouts]="workouts()"
+      [(selectedTab)]="selectedTab"
+      (exerciseAdded)="addExercise($event)"
+      (exerciseDeleted)="deleteExercise($event)"
+      (workoutAdded)="addWorkout()"
+      (workoutDeleted)="deleteWorkout($event)"
+      (workoutCleared)="clearWorkout($event)"
+      (workoutCopied)="copyWorkout($event)"
+    ></app-workout-layout >
+  </mat-drawer-content >
 
 </mat-drawer-container>
