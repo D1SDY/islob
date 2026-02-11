@@ -8,4 +8,7 @@ export const routes: Routes = [{
   providers: [
     provideState(configToolFeature)
   ]
+}, {
+  path: '',
+  loadComponent: () => import('./main/feature/main').then(m => m.Main),
 }];
