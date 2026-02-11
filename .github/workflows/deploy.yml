@@ -36,7 +36,7 @@ jobs:
 
       - name: Build Angular app
         working-directory: coaching
-        run: npm run build -- --configuration=production --base-href=/coaching/
+        run: npm run build -- --configuration=production --base-href=/islob/
         # If your GitHub repo is NOT named "coaching", change /coaching/ to /<your-repo-name>/
 
       # Optional: debug to verify build output
